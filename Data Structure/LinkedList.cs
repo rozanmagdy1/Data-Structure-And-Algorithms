@@ -1,232 +1,133 @@
 ﻿namespace Data_Structure
 {
-	internal class LinkedList
+	internal class ListNode
 	{
-		public class Node
+		public int val;
+		public ListNode? next;
+		public ListNode(int val)
 		{
-			public Node? next;
-			public int data;
-
-			public Node(int value)
-			{
-				data = value;
-				next = null;
-			}
-		}
-		public Node head;
-
-		public void LinkedListTraverse()
-		{
-			Node temp = head;
-			while (temp != null)
-			{
-				Console.WriteLine(temp.data);
-				temp = temp.next;
-			}
+			this.val = val;
+			next = null;
 		}
 
-		public void InsertAtTail(int data)
+		//Insert
+		public ListNode InsertAtBeginning(ListNode head, int value) //O(1)
 		{
-			Node newNode = new Node(data);
+			ListNode newNode = new ListNode(value);
+			newNode.next = head;
+			return newNode;
+		}
 
-			Node current = head;
-			if (current != null)
+		public ListNode InsertAtEnd(ListNode head, int value) //O(n)
+		{
+			ListNode newNode = new ListNode(value);
+			if (head == null) //first node
 			{
-				while (current.next != null)
+				return newNode;
+			}
+			else
+			{
+				ListNode current = head;
+				while (current.next != null) //to get the last element
 				{
 					current = current.next;
 				}
 				current.next = newNode;
 			}
-			else //empty list
-			{
-				head = newNode;
-			}
-		}
-
-		public void InsertAtHead(int data)
-		{
-			Node newNode = new Node(data);
-			newNode.next = head;
-			head = newNode;
-		}
-
-		public void InsertAtPosition(int data, int position)
-		{
-			Node newNode = new Node(data);
-
-			int count = 0;
-			Node temp = head;
-			while (count < position - 1 && temp != null)
-			{
-				temp = temp.next;
-				count++;
-			}
-
-			if (temp != null)
-			{
-				newNode.next = temp.next;
-				temp.next = newNode;
-			}
-		}
-
-		public void DeleteAtHead()
-		{
-			if (head != null)
-			{
-				head.next = head;
-			}
-		}
-
-		public void DeleteAtTail()
-		{
-			if (head.next == null)//only one node
-			{
-				head = null;
-			}
-
-			Node current = head;
-			while (current.next.next != null) //the second last
-			{
-				current = current.next;
-			}
-			current.next = null;
-
-		}
-
-		public Node DeleteAtPosition(int pos)
-		{
-			if (head == null) return null;
-
-			if (pos == 0)
-			{
-				head = head.next;
-				return head;
-			}
-
-			int count = 0;
-			Node temp = head;
-			while (count < pos - 1 && temp != null)
-			{
-				temp = temp.next;
-				count++;
-			}
-			if (temp != null && temp.next != null)
-				temp.next = temp.next.next;
 
 			return head;
 		}
 
-		public void ReverseLinkedList()
+		public ListNode InsertAt(int index, int value, ListNode head)//O(n)
 		{
-			Stack<Node> stack = new Stack<Node>();
-			if (head != null)
+			ListNode newNode = new ListNode(value);
+			if (head == null && index == 0) return newNode;
+
+			if (head != null && index == 0)
 			{
-				Node temp = head;
-				while (temp != null)
-				{
-					stack.Push(temp);
-					temp = temp.next;
-				}
-
-				Node newHead = stack.Pop();
-				Node currentNew = newHead;
-
-				while (stack.Count > 0)
-				{
-					currentNew.next = stack.Pop();
-					currentNew = currentNew.next;
-				}
-
-				currentNew.next = null;
+				newNode.next = head;
+				return newNode;
 			}
+
+			int count = 0;
+			ListNode current = head;
+			while (count < index - 1 && current != null)
+			{
+				current = current.next;
+				count++;
+			}
+
+			if (current != null)
+			{
+				newNode.next = current.next;
+				current.next = newNode;
+			}
+			return head;
 
 		}
 
-		public void DeleteNodes(int x)
+		//delete
+		public ListNode DeleteAtBeginning(ListNode head)//O(1)
 		{
 			if (head != null)
 			{
-				Node current = head;
+				head = head.next;
+			}
+			return head;
+		}
 
-				if (head.data >= x)
+		public ListNode DeleteAtEnd(ListNode head)//O(n)
+		{
+			if (head == null || head.next == null)
+			{
+				head = null;
+			}
+
+			ListNode current = head;
+			while (current.next.next != null) //to get second the last one
+			{
+				current = current.next;
+			}
+			current.next = null;
+			return head;
+		}
+
+
+		public ListNode RemoveAt(int index, ListNode head)//O(n)
+		{
+			if (head != null)
+			{
+				if(index == 0)
 				{
 					head = head.next;
 				}
-
-				while (current.next != null)
+				else
 				{
-					if (current.next.data >= x)
+					int count = 0;
+					ListNode current = head;
+					while (count < index - 1 && current != null)
+					{
+						current = current.next;
+						count++;
+					}
+
+					if (current != null && current.next != null)
 					{
 						current.next = current.next.next;
 					}
-					else
-					{
-						current = current.next;
-					}
 				}
-
 			}
-
-
-
-
-
+			return head;
 		}
 
-		public bool CompareLists(Node head1, Node head2)
+		public void LinkedListTraverse(ListNode head)//O(n)
 		{
-			Node currentList1 = head1;
-			Node currentList2 = head2;
-			while (currentList1 != null && currentList2 != null)
+			ListNode temp = head;
+			while (temp != null)
 			{
-				if (currentList1.data != currentList2.data)
-				{
-					return false;
-				}
-				if ((currentList1.next == null && currentList2.next != null) ||
-					(currentList2.next == null && currentList1.next != null))
-				{
-					return false;
-				}
-				currentList1 = currentList1.next;
-				currentList2 = currentList2.next;
-			}
-			return true;
-		}
-
-		public Node MergeLists(Node head1, Node head2)
-		{
-			Node dummy = new Node(0);
-
-			Node temp = dummy;
-
-			while (true)
-			{
-				if (head1 == null)
-				{
-					temp.next = head2.next;
-					break;
-				}
-				else if (head2 == null)
-				{
-					temp.next = head1.next;
-					break;
-				}
-				else if (head1.data < head2.data)
-				{
-					temp.next = head1.next;
-					head1 = head1.next;
-				}
-				else
-				{
-					temp.next = head2.next;
-					head2 = head2.next;
-				}
+				Console.WriteLine(temp.val);
 				temp = temp.next;
 			}
-			return dummy.next;
-
 		}
 
 	}

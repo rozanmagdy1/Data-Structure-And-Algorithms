@@ -1,5 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using Data_Structure;
+using Data_Structure.NewFolder;
 
 Console.WriteLine("Hello, World!");
 
