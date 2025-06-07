@@ -1,11 +1,24 @@
-﻿// See https://aka.ms/new-console-template for more information
-using Data_Structure.NewFolder;
+﻿using Data_Structure;
+using Data_Structure.Problems;
 
-Console.WriteLine("Hello, World!");
+//Console.WriteLine("Hello, World!");
 
-LinkedList model = new LinkedList();
-model.InsertAtHead(10);
-model.InsertAtHead(3);
-model.InsertAtHead(2);
-model.InsertAtHead(20);
-model.DeleteNodes(3);
+//ListNode node = new ListNode(1);
+//ListNode node2 = new ListNode(2);
+//ListNode node3 = new ListNode(2);
+//ListNode node4 = new ListNode(1);
+////ListNode node5 = new ListNode(4);
+////ListNode node6 = new ListNode(5);
+////ListNode node7 = new ListNode(6);
+
+//node.next = node2;
+//node.next.next = node3;
+//node.next.next.next = node4;
+////node.next.next.next.next = node5;
+////node.next.next.next.next.next = node6;
+////node.next.next.next.next.next.next = node7;
+
+//LinkedListProblems.IsPalindrome(node);
+
+
+ArrayProblems.TwoSum(new int[] { 3,3 }, 6);

@@ -83,7 +83,7 @@
 
 				current.next = newNode;
 
-				if (newNode.next.prev != null)
+				if (newNode.next != null)
 					newNode.next.prev = newNode;
 
 			}
@@ -94,12 +94,9 @@
 		public DoublyLinkedList DeleteAtBeginning(DoublyLinkedList head)//O(1)
 		{
 			if (head == null) return null;
-
+			if (head.next == null) return null;
 			head = head.next;
-
-			if(head.next != null)
-				head.prev = null;
-
+			head.prev = null;
 			return head;
 		}
 
@@ -107,6 +104,7 @@
 		public DoublyLinkedList DeleteAtEnd(DoublyLinkedList head)//O(n)
 		{
 			if (head == null) return null;
+			if (head.next == null) return null;
 
 			DoublyLinkedList current = head;
 			while(current.next.next != null) //second last
