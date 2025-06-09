@@ -116,7 +116,7 @@
 		{
 			if (head == null || head.next == null) return head;
 
-			ListNode midNode = MiddleNode(head);
+			ListNode midNode = MiddleNodeForMergeSort(head);
 			ListNode head2 = midNode.next;
 
 			midNode.next = null;
@@ -125,6 +125,20 @@
 			ListNode right = MergeSort(head2);
 
 			return MergeTwoSortedLists(left, right);
+		}
+
+		public static ListNode MiddleNodeForMergeSort(ListNode head) 
+		{
+			ListNode fast = head;
+			ListNode slow = head;
+
+			fast = fast.next;
+			while (fast != null && fast.next != null)
+			{
+				slow = slow.next;
+				fast = fast.next.next;
+			}
+			return slow;
 		}
 
 		/********************************************/
@@ -154,22 +168,39 @@
 
 		/********************************************/
 		//Merge Two unsorted lists into new sort list (Amazon Interview)
-		//public ListNode MergeTwoUnSortedLists(ListNode list1, ListNode list2)
-		//{
-
-
-		//}
+		public ListNode MergeTwoUnSortedLists(ListNode list1, ListNode list2)
+		{ 
+			ListNode left = MergeSort(list1);
+			ListNode right = MergeSort(list2);
+			return MergeTwoSortedLists(left, right);
+		}
 
 		/********************************************/
 
+		//leet code problem 203
+		//Noon interview question
+		//Remove elements from linked list that value > n
+		public static ListNode RemoveNodes(ListNode head, int val)
+		{
+			ListNode result = new ListNode(0);
+			ListNode temp = result;
 
+			ListNode current = head;
+			while (current != null)
+			{
+				if (current.val != val)
+				{
+					temp.next = new ListNode(current.val);
+					temp = temp.next;
+				}
+				current = current.next;
 
+			}
+			return result.next;
 
+		}
 
-
-
-
-
+		/********************************************/
 
 		//leet code problem 2
 		public ListNode AddTwoNumbers(ListNode l1, ListNode l2)
@@ -209,119 +240,6 @@
 
 		/********************************************/
 
-		//leet code problem 206
-		public static ListNode ReverseList(ListNode head)
-		{
-			//Complexity O(2n)
-			//Stack<int> values = new Stack<int>();
-			//ListNode reveredList = new ListNode(0);
 
-			//ListNode current = head;
-			//while (current != null)
-			//{
-			//	values.Push(current.val);
-			//	current = current.next;
-			//}
-
-			//ListNode reveredListTemp = reveredList;
-			//while (values.Count > 0)
-			//{
-			//	ListNode newNode = new ListNode(values.Pop());
-			//	reveredListTemp.next = newNode;
-			//	reveredListTemp = reveredListTemp.next;
-			//}
-
-			//return reveredList.next;
-
-			//Other solution
-			ListNode prev = null;
-			ListNode current = head;
-			ListNode front = current.next;
-
-			while (current != null)
-			{
-				front = current.next;
-				current.next = prev;
-				prev = current;
-				current = front;
-			}
-			return front;
-
-		}
-
-		/********************************************/
-
-		//leet code problem 203
-		//Noon interview question
-		//Remove elements from linked list that value > n
-		public static ListNode RemoveNodes(ListNode head, int val)
-		{
-			ListNode result = new ListNode(0);
-			ListNode temp = result;
-
-			ListNode current = head;
-			while (current != null)
-			{
-				if (current.val != val)
-				{
-					temp.next = new ListNode(current.val);
-					temp = temp.next;
-				}
-				current = current.next;
-
-			}
-			return result.next;
-
-		}
-
-		/********************************************/
-
-		//leet code problem 19
-		//public ListNode RemoveNthFromEnd(ListNode head)
-		//{
-
-		//}
-
-		/********************************************/
-		//leet code problem 234
-		public static bool IsPalindrome(ListNode head)
-		{
-			//let's reverse the list then compare
-			ListNode reversed = ReverseList(head);
-
-			bool plaindrome = true;
-			//compare head and front
-			while (head != null && reversed != null)
-			{
-				if (head.val != reversed.val)
-				{
-					plaindrome = false;
-				}
-				head = head.next;
-				reversed = reversed.next;
-			}
-			return plaindrome;
-		}
-
-		/********************************************/
-		//leet code problem 141
-		//public ListNode HasCycle(ListNode head)
-		//{
-
-		//}
-
-		/********************************************/
-		//leet code problem 106
-		//public ListNode GetIntersectionNode(ListNode head)
-		//{
-
-		//}
-
-		/********************************************/
-		//leet code problem 92
-		//public ListNode ReverseBetween(ListNode head, int left, int right)
-		//{
-
-		//}
 	}
 }
