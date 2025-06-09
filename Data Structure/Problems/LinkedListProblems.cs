@@ -109,12 +109,22 @@
 		//leet code problem 148
 		public ListNode SortList(ListNode head)
 		{
-			return head;
+			return MergeSort(head);
 		}
 
-		private void MergeSort(ListNode head)
+		private ListNode MergeSort(ListNode head)
 		{
+			if (head == null || head.next == null) return head;
 
+			ListNode midNode = MiddleNode(head);
+			ListNode head2 = midNode.next;
+
+			midNode.next = null;
+
+			ListNode left = MergeSort(head);
+			ListNode right = MergeSort(head2);
+
+			return MergeTwoSortedLists(left, right);
 		}
 
 		/********************************************/
