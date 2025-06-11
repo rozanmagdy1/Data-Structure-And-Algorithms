@@ -74,11 +74,12 @@
 
 			while (list1 != null && list2 != null)
 			{
-				if(list1.val <= list2.val)
+				if (list1.val <= list2.val)
 				{
 					current.next = new ListNode(list1.val);
 					list1 = list1.next;
-				} else
+				}
+				else
 				{
 					current.next = new ListNode(list2.val);
 					list2 = list2.next;
@@ -107,12 +108,12 @@
 		/********************************************/
 
 		//leet code problem 148
-		public ListNode SortList(ListNode head)
+		public static ListNode SortList(ListNode head)
 		{
 			return MergeSort(head);
 		}
 
-		private ListNode MergeSort(ListNode head)
+		private static ListNode MergeSort(ListNode head)
 		{
 			if (head == null || head.next == null) return head;
 
@@ -127,13 +128,12 @@
 			return MergeTwoSortedLists(left, right);
 		}
 
-		public static ListNode MiddleNodeForMergeSort(ListNode head) 
+		public static ListNode MiddleNodeForMergeSort(ListNode head)
 		{
 			ListNode fast = head;
 			ListNode slow = head;
 
-			fast = fast.next;
-			while (fast != null && fast.next != null)
+			while (fast.next != null && fast.next.next != null)
 			{
 				slow = slow.next;
 				fast = fast.next.next;
@@ -168,8 +168,8 @@
 
 		/********************************************/
 		//Merge Two unsorted lists into new sort list (Amazon Interview)
-		public ListNode MergeTwoUnSortedLists(ListNode list1, ListNode list2)
-		{ 
+		public static ListNode MergeTwoUnSortedLists(ListNode list1, ListNode list2)
+		{
 			ListNode left = MergeSort(list1);
 			ListNode right = MergeSort(list2);
 			return MergeTwoSortedLists(left, right);
@@ -203,7 +203,7 @@
 		/********************************************/
 
 		//leet code problem 2
-		public ListNode AddTwoNumbers(ListNode l1, ListNode l2)
+		public static ListNode AddTwoNumbers(ListNode l1, ListNode l2)
 		{
 			ListNode resultList = new ListNode(0);
 			ListNode current = resultList;
@@ -240,6 +240,139 @@
 
 		/********************************************/
 
+		//leet code problem 160
+		public static ListNode GetIntersectionNode(ListNode headA, ListNode headB)
+		{
+			//HashSet<ListNode> set1 = new HashSet<ListNode>();
+			//HashSet<ListNode> set2 = new HashSet<ListNode>();
+
+			//ListNode current1 = headA;
+			//ListNode current2 = headB;
+
+			//while (current1 != null || current2 != null)
+			//{
+
+			//	if (current1 != null)
+			//	{
+			//		if (set2.Contains(current1))
+			//		{
+			//			return current1;
+			//		}
+			//		else
+			//		{
+			//			set1.Add(current1);
+			//			current1 = current1.next;
+			//		}
+			//	}
+			//	if (current2 != null)
+			//	{
+			//		if (set1.Contains(current2))
+			//		{
+			//			return current2;
+			//		}
+			//		else
+			//		{
+			//			set2.Add(current2);
+			//			current2 = current2.next;
+			//		}
+			//	}
+			//}
+			//return null;
+
+			//***************************************//
+
+			//HashSet<ListNode> set = new HashSet<ListNode>();
+
+			//ListNode current1 = headA;
+			//ListNode current2 = headB;
+
+			//while (current1 != null)
+			//{
+			//	set.Add(current1);
+			//	current1 = current1.next;
+			//}
+
+			//while (current2 != null)
+			//{
+			//	if (set.Contains(current2))
+			//	{
+			//		return current2;
+			//	}
+			//	else
+			//	{
+			//		current2 = current2.next;
+			//	}
+			//}
+
+			//return null;
+
+			//***************************************//
+
+			ListNode t1 = headA;
+			ListNode t2 = headB;
+
+			while (t1 != t2)
+			{
+				t1 = t1.next;
+				t2 = t2.next;
+
+				if (t1 == t2) return t2;
+				if (t1 == null) t1 = headB;
+				if (t2 == null) t2 = headA;
+			}
+			return t1;
+		}
+
+		/********************************************/
+
+		//leet code problem 206
+		public static ListNode ReverseList(ListNode head)
+		{
+			if (head == null) return null;
+			ListNode prev = null;
+			ListNode current = head;
+			ListNode front = head.next;
+
+			while (current != null)
+			{
+				current.next = prev;
+				prev = current;
+				current = front;
+				if (front != null) front = front.next;
+			}
+			return prev;
+		}
+
+		/********************************************/
+
+		//leet code problem 234
+		public bool IsPalindrome(ListNode head)
+		{
+			ListNode fast = head;
+			ListNode slow = head;
+			while (fast.next != null && fast.next.next != null)
+			{
+				fast = fast.next.next;
+				slow = slow.next;
+			}
+			ListNode revered = ReverseList(slow.next);
+
+			ListNode temp1 = head;
+			ListNode temp2 = revered;
+
+			while (temp2 != null)
+			{
+				if (temp1.val != temp2.val)
+				{
+					return false;
+				}
+				temp1 = temp1.next;
+				temp2 = temp2.next;
+			}
+
+			return true;
+		}
+		/********************************************/
 
 	}
 }
