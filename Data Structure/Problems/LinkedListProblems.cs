@@ -346,7 +346,7 @@
 		/********************************************/
 
 		//leet code problem 234
-		public bool IsPalindrome(ListNode head)
+		public static bool IsPalindrome(ListNode head)
 		{
 			ListNode fast = head;
 			ListNode slow = head;
